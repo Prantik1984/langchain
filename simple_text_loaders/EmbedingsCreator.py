@@ -3,15 +3,15 @@ from dotenv import load_dotenv
 import  os
 
 class EmbedingsCreator:
-    def __init__(self,texts):
+    def __init__(self):
        load_dotenv()
        self.Ollama_Url=os.getenv("ollama_url")
        self.embedding_model = os.getenv("embedding_model")
-       self.texts = texts
 
-    def create_embedings(self):
+    def create_embedings(self,text):
         embeddings = OllamaEmbeddings(
             model=self.embedding_model,
             base_url=self.Ollama_Url
         )
-        return self.texts
+        vector = embeddings.embed_query(text)
+        return embeddings
